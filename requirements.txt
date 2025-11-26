@@ -1,0 +1,5 @@
+rich
+youtube-transcript-api
+fastapi
+uvicorn
+streamlit
