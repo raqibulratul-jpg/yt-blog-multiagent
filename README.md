@@ -46,25 +46,5 @@ flowchart LR
     B --> C[Worker Agent]
     C --> D[Evaluator Agent]
     D --> E((Output Blog Article))
+```
 
-
-## 🚀 How to Run
-
-You can run the system in three ways:
-
-### 1️⃣ Google Colab — No setup needed (Recommended)
-Click the button and start using instantly 👇
-
-➡️ **Open in Colab**  
-> Upload a YouTube link → Get SEO-optimized blog article output ✨
-
-### 2️⃣ Kaggle Notebook
-Run in a GPU-enabled Kaggle environment.
-
-### 3️⃣ Local Installation
-
-```bash
-git clone https://github.com/raqibulratul-jpg/yt-blog-multiagent.git
-cd yt-blog-multiagent
-pip install -r requirements.txt
-python project/run_demo.py
