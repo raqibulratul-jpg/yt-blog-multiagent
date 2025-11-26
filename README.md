@@ -23,6 +23,12 @@ A powerful AI multi-agent application that **converts YouTube videos into SEO-fr
 | ⏰ Time Saver | Converts 10 min video → Blog in seconds |
 
 ---
+## 🚀 Run in Google Colab
+
+Open the Colab notebook and run the multi-agent YouTube → Blog converter with a single click 👇
+
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/raqibulratul-jpg/yt-blog-multiagent/blob/main/YT_Blog_MultiAgent.ipynb)
+
 
 ## 🧠 Multi-Agent Architecture
 
