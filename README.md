@@ -2,19 +2,11 @@
 
 [![GitHub Release](https://img.shields.io/github/v/release/raqibulratul-jpg/yt-blog-multiagent?color=brightgreen)](https://github.com/raqibulratul-jpg/yt-blog-multiagent/releases/latest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/raqibulratul-jpg/yt-blog-multiagent?style=social)](https://github.com/raqibulratul-jpg/yt-blog-multiagent/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/raqibulratul-jpg/yt-blog-multiagent?style=social)](https://github.com/raqibulratul-jpg/yt-blog-multiagent/network/members)
+[![GitHub Stars](https://img.shields.io/github/stars/raqibulratul-jpg/yt-blog-multiagent?style=social)](https://github.com/raqibulratul-jpg/yt-blog-multiagent/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/raqibulratul-jpg/yt-blog-multiagent?style=social)](https://github.com/raqibulratul-jpg/yt-blog-multiagent/network/members)
 
 
-<p align="center">
 
-  <img src="https://img.shields.io/badge/Python-3.10-blue" />
-  <img src="https://img.shields.io/github/last-commit/raqibulratul-jpg/yt-blog-multiagent" />
-  <img src="https://img.shields.io/github/stars/raqibulratul-jpg/yt-blog-multiagent?style=social" />
-  <img src="https://img.shields.io/github/forks/raqibulratul-jpg/yt-blog-multiagent?style=social" />
-  <img src="https://img.shields.io/github/license/raqibulratul-jpg/yt-blog-multiagent" />
-
-</p>
 
 A powerful AI multi-agent application that **converts YouTube videos into SEO-friendly blog articles**, using a structured workflow:
 
