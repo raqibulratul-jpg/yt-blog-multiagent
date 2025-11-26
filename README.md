@@ -1,5 +1,15 @@
 # 🎯 YouTube → Blog Article Converter (Multi-Agent AI System)
 
+<p align="center">
+
+  <img src="https://img.shields.io/badge/Python-3.10-blue" />
+  <img src="https://img.shields.io/github/last-commit/raqibulratul-jpg/yt-blog-multiagent" />
+  <img src="https://img.shields.io/github/stars/raqibulratul-jpg/yt-blog-multiagent?style=social" />
+  <img src="https://img.shields.io/github/forks/raqibulratul-jpg/yt-blog-multiagent?style=social" />
+  <img src="https://img.shields.io/github/license/raqibulratul-jpg/yt-blog-multiagent" />
+
+</p>
+
 A powerful AI multi-agent application that **converts YouTube videos into SEO-friendly blog articles**, using a structured workflow:
 
 > Planner → Worker → Evaluator
