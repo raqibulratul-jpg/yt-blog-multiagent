@@ -37,6 +37,7 @@ Open the Colab notebook and run the multi-agent YouTube → Blog converter with 
 
 [![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/raqibulratul-jpg/yt-blog-multiagent/blob/main/YT_Blog_MultiAgent.ipynb)
 
+
 ## 🧠 Multi-Agent Architecture
 
 ```mermaid
@@ -45,8 +46,6 @@ flowchart LR
     B --> C[Worker Agent]
     C --> D[Evaluator Agent]
     D --> E((Output Blog Article))
-
-
 
 
 ## 🚀 How to Run
