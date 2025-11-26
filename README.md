@@ -1,8 +1,10 @@
 # 🎯 YouTube → Blog Article Converter (Multi-Agent AI System)
 
 [![GitHub Release](https://img.shields.io/github/v/release/raqibulratul-jpg/yt-blog-multiagent?color=brightgreen)](https://github.com/raqibulratul-jpg/yt-blog-multiagent/releases/latest)
-[![GitHub license](https://img.shields.io/github/license/raqibulratul-jpg/yt-blog-multiagent)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/raqibulratul-jpg/yt-blog-multiagent?style=social)](https://github.com/raqibulratul-jpg/yt-blog-multiagent/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/raqibulratul-jpg/yt-blog-multiagent?style=social)](https://github.com/raqibulratul-jpg/yt-blog-multiagent/network/members)
+
 
 <p align="center">
 
