@@ -28,12 +28,14 @@ class Planner:
         )
 
         transcript = self.transcript_fetcher.fetch(user_input)
+        timestamped_transcript = self.transcript_fetcher.fetch_with_timestamps(user_input)
         sections = chunk_text(transcript, max_chars=800)
 
         plan: Dict[str, Any] = {
             "task": "youtube_to_blog",
             "original_input": user_input,
             "transcript": transcript,
+            "timestamped_transcript": timestamped_transcript,
             "sections": sections,
             "style": style_prefs,
         }

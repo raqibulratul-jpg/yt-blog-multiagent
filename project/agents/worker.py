@@ -18,6 +18,7 @@ class Worker:
     def generate_blog(self, plan: Dict[str, Any], memory: SessionMemory) -> Dict[str, Any]:
         self.logger.info("Generating blog content from plan.")
         transcript: str = plan.get("transcript", "")
+        timestamped_transcript: List[Dict] = plan.get("timestamped_transcript", [])
         sections: List[str] = plan.get("sections", [])
         style = plan.get("style", {})
 
@@ -33,10 +34,24 @@ class Worker:
         if keywords:
             title = f"{keywords[0].capitalize()} – A Blog Based on a YouTube Video"
 
-        body_parts: List[str] = []
-        for idx, sec in enumerate(sections, start=1):
-            sec_summary = self.summarizer.summarize(sec, max_sentences=2)
-            body_parts.append(f"## Section {idx}\n\n{sec_summary}\n")
+        # Format timestamped transcript
+        timestamped_sections: List[str] = []
+        timestamped_sections.append("## Timestamped Transcript\n")
+        
+        for entry in timestamped_transcript:
+            start_time = entry['start']
+            end_time = start_time + entry['duration']
+            text = entry['text']
+            
+            # Format time as MM:SS
+            start_min = int(start_time // 60)
+            start_sec = int(start_time % 60)
+            end_min = int(end_time // 60)
+            end_sec = int(end_time % 60)
+            
+            timestamped_sections.append(
+                f"{start_min:02d}:{start_sec:02d} - {end_min:02d}:{end_sec:02d}: {text}\n"
+            )
 
         header_meta = [
             f"# {title}",
@@ -51,7 +66,14 @@ class Worker:
         if keywords:
             header_meta.append(f"**SEO Keywords:** {', '.join(keywords)}\n")
 
-        article_body = "\n".join(header_meta) + "\n".join(body_parts)
+        # Combine all parts with developer credit at the end
+        article_body = (
+            "\n".join(header_meta) + 
+            "\n".join(timestamped_sections) +
+            "\n" + "="*60 + "\n" +
+            "Developed by Raqibul Islam Ratul\n" +
+            "="*60
+        )
 
         draft: Dict[str, Any] = {
             "title": title,

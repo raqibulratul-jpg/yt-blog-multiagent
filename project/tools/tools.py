@@ -1,24 +1,149 @@
-from typing import List, Dict
+from typing import List, Dict, Optional
 import re
 from collections import Counter
+from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api._errors import TranscriptsDisabled, NoTranscriptFound, VideoUnavailable
 
 
 class TranscriptFetcher:
     """
-    Dummy YouTube transcript fetcher.
-
-    In a real deployment, replace this with actual YouTube API / transcript fetching logic.
+    Real YouTube transcript fetcher using youtube-transcript-api.
     """
 
     def fetch(self, url_or_query: str) -> str:
-        # For demo purposes, we simulate a transcript.
-        base_text = (
-            "Welcome to this YouTube video. In this session, we discuss how to convert videos into blog articles. "
-            "We cover the main ideas, break down the content into sections, and show how AI can automate this process. "
-            "By the end, you will understand how to design a YouTube to blog converter using multi-agent systems."
-        )
-        simulated = f"Simulated transcript for: {url_or_query}\n\n{base_text}"
-        return simulated
+        """
+        Fetch the actual transcript from a YouTube video.
+        
+        Args:
+            url_or_query: YouTube URL or video ID
+            
+        Returns:
+            The complete transcript as a single string
+            
+        Raises:
+            ValueError: If video ID cannot be extracted or transcript is unavailable
+        """
+        video_id = self._extract_video_id(url_or_query)
+        
+        if not video_id:
+            raise ValueError(f"Could not extract video ID from: {url_or_query}")
+        
+        try:
+            # Fetch the transcript
+            api = YouTubeTranscriptApi()
+            
+            # List available transcripts
+            transcript_list = api.list(video_id)
+            
+            # Try to find English transcript, or use first available
+            try:
+                transcript = transcript_list.find_transcript(['en'])
+            except:
+                # If English not available, use the first available transcript
+                transcript = transcript_list.find_generated_transcript(['en']) if transcript_list else None
+                if not transcript:
+                    available = list(transcript_list)
+                    if available:
+                        transcript = available[0]
+                    else:
+                        raise ValueError("No transcripts available")
+            
+            # Fetch the actual transcript data
+            transcript_result = api.fetch(transcript.video_id, [transcript.language_code])
+            
+            # Combine all transcript segments into a single string
+            full_transcript = " ".join([snippet.text for snippet in transcript_result])
+            
+            return full_transcript
+            
+        except TranscriptsDisabled:
+            raise ValueError(f"Transcripts are disabled for video: {video_id}")
+        except NoTranscriptFound:
+            raise ValueError(f"No transcript found for video: {video_id}")
+        except VideoUnavailable:
+            raise ValueError(f"Video is unavailable: {video_id}")
+        except Exception as e:
+            raise ValueError(f"Error fetching transcript: {str(e)}")
+    
+    def _extract_video_id(self, url_or_query: str) -> Optional[str]:
+        """
+        Extract video ID from various YouTube URL formats.
+        
+        Supports:
+        - https://www.youtube.com/watch?v=VIDEO_ID
+        - https://youtu.be/VIDEO_ID
+        - https://www.youtube.com/embed/VIDEO_ID
+        - https://www.youtube.com/v/VIDEO_ID
+        - Just the video ID itself
+        """
+        # Pattern for youtube.com/watch?v=
+        pattern1 = r'(?:youtube\.com\/watch\?v=)([a-zA-Z0-9_-]{11})'
+        # Pattern for youtu.be/
+        pattern2 = r'(?:youtu\.be\/)([a-zA-Z0-9_-]{11})'
+        # Pattern for youtube.com/embed/ or youtube.com/v/
+        pattern3 = r'(?:youtube\.com\/(?:embed|v)\/)([a-zA-Z0-9_-]{11})'
+        # Pattern for just the video ID (11 characters)
+        pattern4 = r'^([a-zA-Z0-9_-]{11})$'
+        
+        for pattern in [pattern1, pattern2, pattern3, pattern4]:
+            match = re.search(pattern, url_or_query)
+            if match:
+                return match.group(1)
+        
+        return None
+    
+    def fetch_with_timestamps(self, url_or_query: str) -> List[Dict]:
+        """
+        Fetch transcript with timestamp information.
+        
+        Returns:
+            List of dicts with 'start', 'duration', 'text' keys
+        """
+        video_id = self._extract_video_id(url_or_query)
+        
+        if not video_id:
+            raise ValueError(f"Could not extract video ID from: {url_or_query}")
+        
+        try:
+            api = YouTubeTranscriptApi()
+            
+            # List available transcripts
+            transcript_list = api.list(video_id)
+            
+            # Try to find English transcript, or use first available
+            try:
+                transcript = transcript_list.find_transcript(['en'])
+            except:
+                # If English not available, use the first available transcript
+                transcript = transcript_list.find_generated_transcript(['en']) if transcript_list else None
+                if not transcript:
+                    available = list(transcript_list)
+                    if available:
+                        transcript = available[0]
+                    else:
+                        raise ValueError("No transcripts available")
+            
+            # Fetch the actual transcript data
+            transcript_result = api.fetch(transcript.video_id, [transcript.language_code])
+            
+            # Return list of timestamped segments
+            return [
+                {
+                    'start': snippet.start,
+                    'duration': snippet.duration,
+                    'text': snippet.text
+                }
+                for snippet in transcript_result
+            ]
+            
+        except TranscriptsDisabled:
+            raise ValueError(f"Transcripts are disabled for video: {video_id}")
+        except NoTranscriptFound:
+            raise ValueError(f"No transcript found for video: {video_id}")
+        except VideoUnavailable:
+            raise ValueError(f"Video is unavailable: {video_id}")
+        except Exception as e:
+            raise ValueError(f"Error fetching transcript: {str(e)}")
 
 
 class SimpleSummarizer:
